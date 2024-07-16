@@ -72,6 +72,69 @@ See the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) for implementation 
 2. Auto-update the config to the latest repos' versions by executing `pre-commit autoupdate`.
 3. Install with `pre-commit install`.
 
+## Deployment & Initial Setup (Maintainers)
+
+**The following section is intended only for project maintainers & developers**.
+
+- Please see the [getting started](#getting-started) section for installation and upgrade instructions.
+
+1. Install `goreleaser` if it isn't installed
+
+    ```bash
+    brew install goreleaser/tap/goreleaser
+    ```
+
+2. Initialize the repository for new repositories
+
+    ```bash
+    goreleaser init
+    ```
+
+3. Test the snapshot without VCS deployment
+
+    ```bash
+    goreleaser release --snapshot --clean
+    ```
+
+4. Configure the default system's local `gitlab_token` or `github_token` secret
+
+    ```bash
+    mkdir -p ~/.config/goreleaser && touch ~/.config/goreleaser/gitlab_token
+    mkdir -p ~/.config/goreleaser && touch ~/.config/goreleaser/github_token
+    ```
+
+5. Commit and push to VCS
+
+    ```bash
+    git add . && git commit -m "CI - Example" && git push
+    ```
+
+6. List `git` tags to get a version that isn't already established
+
+    ```bash
+    git tag --list
+    ```
+
+7. Using the output from above, increment the version and push a new tag
+
+    ```bash
+    git tag -a v0.0.1 -m "Bump: Initial Release" && git push origin v0.0.1
+    ```
+
+8. Create and push a new release
+
+    ```bash
+    goreleaser release --clean
+    ```
+
+9. Update the Cask if already established
+
+    ```bash
+    brew update
+    ```
+
+10. Install the package (see the [installation](#installing) section)
+
 #### General Command Reference(s)
 
 **Update the configuration's upstreams**
