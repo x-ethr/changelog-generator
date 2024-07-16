@@ -69,8 +69,8 @@ all :: patch-release
 
 install:
 	@brew tap x-ethr/homebrew-taps
-	@brew install ethr-cli --force
-	@brew update && brew upgrade ethr-cli
+	@brew install changelog-generator --force
+	@brew update && brew upgrade changelog-generator
 
 tidy:
 	@go mod tidy && go mod vendor
